@@ -2,8 +2,7 @@ import {getInput, setFailed, setOutput} from "@actions/core"
 import {exec} from "@actions/exec"
 import {downloadTool, extractZip, cacheDir, cacheFile, find as findCache} from "@actions/tool-cache"
 import {createHash} from "crypto"
-import {createReadStream} from "fs"
-import {chmod} from "fs/promises"
+import {createReadStream, promises as fs} from "fs"
 import * as https from "https"
 import * as os from "os"
 import {join} from "path"
@@ -52,7 +51,7 @@ async function installWindows(buildScripts: string, phpVerMd5: string) : Promise
 }
 
 async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<string> {
-	await chmod(join(buildScripts, "compile.sh"), 0o775)
+	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
 	})
@@ -61,7 +60,7 @@ async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<
 }
 
 async function installLinux(buildScripts: string, phpVerMd5: string) : Promise<string> {
-	await chmod(join(buildScripts, "compile.sh"), 0o775)
+	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
 	})

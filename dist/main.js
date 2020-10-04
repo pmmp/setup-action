@@ -41,7 +41,6 @@ var exec_1 = require("@actions/exec");
 var tool_cache_1 = require("@actions/tool-cache");
 var crypto_1 = require("crypto");
 var fs_1 = require("fs");
-var promises_1 = require("fs/promises");
 var https = require("https");
 var os = require("os");
 var path_1 = require("path");
@@ -118,7 +117,7 @@ function installDarwin(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, promises_1.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
+                case 0: return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
@@ -138,7 +137,7 @@ function installLinux(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, promises_1.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
+                case 0: return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
