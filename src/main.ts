@@ -51,6 +51,7 @@ async function installWindows(buildScripts: string, phpVerMd5: string) : Promise
 }
 
 async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<string> {
+	console.log(await fs.readdir(buildScripts))
 	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
