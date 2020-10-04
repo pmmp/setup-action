@@ -74,7 +74,7 @@ function downloadBuildScripts(ref) {
                     return [4 /*yield*/, new Promise(function (resolve, reject) {
                             var reader = fs_1.createReadStream(zipball);
                             reader.on("readable", function () {
-                                var data = input.read();
+                                var data = reader.read();
                                 if (data) {
                                     hash.update(data);
                                 }
@@ -88,7 +88,7 @@ function downloadBuildScripts(ref) {
                     return [4 /*yield*/, tool_cache_1.extractZip(zipball, "../php-build-scripts")];
                 case 3:
                     _a.sent();
-                    return [2 /*return*/, [zipball, hex]];
+                    return [2 /*return*/, ["../php-build-scripts/php-build-scripts-master", hex]];
             }
         });
     });

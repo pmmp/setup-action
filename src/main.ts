@@ -21,22 +21,22 @@ async function getJson(url: string, opts: https.RequestOptions = {}) : Promise<a
 	})
 }
 
-async function downloadBuildScripts(ref: string) {
+async function downloadBuildScripts(ref: string) : Promise<[string, string]> {
 	const zipball = await downloadTool(`https://github.com/pmmp/php-build-scripts/archive/${ref}.zip`)
 	const hash = createHash("md5")
 	const hex = await new Promise((resolve, reject) => {
 		const reader = createReadStream(zipball)
 		reader.on("readable", () => {
-			const data = input.read()
+			const data = reader.read()
 			if(data) {
 				hash.update(data)
 			} else {
 				resolve(hash.digest("hex"))
 			}
 		})
-	})
+	}) as string
 	await extractZip(zipball, "../php-build-scripts")
-	return [zipball, hex]
+	return ["../php-build-scripts/php-build-scripts-master", hex]
 }
 
 async function installWindows(buildScripts: string, phpVerMd5: string) : Promise<string> {
