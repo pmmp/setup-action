@@ -1,0 +1,28 @@
+inputs:
+  target:
+    description: |
+      The target PocketMine version to test against.
+
+      Possible values:
+      - exact versions (at least 3.0.0)
+      - stable (latest release)
+      - minor.next (latest stable dev build)
+      - major.next (latest master dev build)
+    required: false
+    default: stable
+
+outputs:
+  php:
+    description: Path to PHP executable
+  pm:
+    description: Path to PocketMine-MP.phar
+
+name: Setup PHP and PocketMine
+description: GitHub action for setting up the environment for PocketMine.
+author: PMMP Team
+branding:
+  icon: settings
+  color: blue
+runs:
+  using: node12
+  main: dist/main.js
