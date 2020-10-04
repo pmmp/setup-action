@@ -117,7 +117,7 @@ function installDarwin(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
+                case 0: return [4 /*yield*/, exec_1.exec("bash", ["compile.sh", "-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
                         cwd: buildScripts
                     })];
                 case 1:
@@ -134,7 +134,7 @@ function installLinux(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
+                case 0: return [4 /*yield*/, exec_1.exec("bash", ["compile.sh", "-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
                         cwd: buildScripts
                     })];
                 case 1:
