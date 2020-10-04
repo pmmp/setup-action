@@ -64,12 +64,12 @@ function getJson(url, opts) {
 }
 function downloadBuildScripts(ref) {
     return __awaiter(this, void 0, void 0, function () {
-        var zipball, hash, hex, target;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var zipball, hash, hex, target, _a, _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0: return [4 /*yield*/, tool_cache_1.downloadTool("https://github.com/pmmp/php-build-scripts/archive/" + ref + ".zip")];
                 case 1:
-                    zipball = _a.sent();
+                    zipball = _c.sent();
                     hash = crypto_1.createHash("md5");
                     return [4 /*yield*/, new Promise(function (resolve, reject) {
                             var reader = fs_1.createReadStream(zipball);
@@ -84,10 +84,14 @@ function downloadBuildScripts(ref) {
                             });
                         })];
                 case 2:
-                    hex = _a.sent();
+                    hex = _c.sent();
                     return [4 /*yield*/, tool_cache_1.extractZip(zipball)];
                 case 3:
-                    target = _a.sent();
+                    target = _c.sent();
+                    _b = (_a = console).log;
+                    return [4 /*yield*/, fs_1.promises.readdir(target)];
+                case 4:
+                    _b.apply(_a, [_c.sent()]);
                     return [2 /*return*/, [path_1.join(target, "php-build-scripts-master"), hex]];
             }
         });

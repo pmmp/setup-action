@@ -36,6 +36,7 @@ async function downloadBuildScripts(ref: string) : Promise<[string, string]> {
 		})
 	}) as string
 	const target = await extractZip(zipball)
+	console.log(await fs.readdir(target))
 	return [join(target, "php-build-scripts-master"), hex]
 }
 
