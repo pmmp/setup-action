@@ -35,8 +35,8 @@ async function downloadBuildScripts(ref: string) : Promise<[string, string]> {
 			}
 		})
 	}) as string
-	await extractZip(zipball, "../php-build-scripts")
-	return ["../php-build-scripts/php-build-scripts-master", hex]
+	const target = await extractZip(zipball)
+	return [join(target, "php-build-scripts-master"), hex]
 }
 
 async function installWindows(buildScripts: string, phpVerMd5: string) : Promise<string> {

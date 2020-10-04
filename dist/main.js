@@ -64,7 +64,7 @@ function getJson(url, opts) {
 }
 function downloadBuildScripts(ref) {
     return __awaiter(this, void 0, void 0, function () {
-        var zipball, hash, hex;
+        var zipball, hash, hex, target;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, tool_cache_1.downloadTool("https://github.com/pmmp/php-build-scripts/archive/" + ref + ".zip")];
@@ -85,10 +85,10 @@ function downloadBuildScripts(ref) {
                         })];
                 case 2:
                     hex = _a.sent();
-                    return [4 /*yield*/, tool_cache_1.extractZip(zipball, "../php-build-scripts")];
+                    return [4 /*yield*/, tool_cache_1.extractZip(zipball)];
                 case 3:
-                    _a.sent();
-                    return [2 /*return*/, ["../php-build-scripts/php-build-scripts-master", hex]];
+                    target = _a.sent();
+                    return [2 /*return*/, [path_1.join(target, "php-build-scripts-master"), hex]];
             }
         });
     });
