@@ -51,7 +51,7 @@ async function installWindows(buildScripts: string, phpVerMd5: string) : Promise
 }
 
 async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<string> {
-	await exec("bash", ["compile.sh", "-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
+	await exec("/usr/bin/env", ["bash", "compile.sh", "-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
 	})
 	await cacheDir(join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())
@@ -59,7 +59,7 @@ async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<
 }
 
 async function installLinux(buildScripts: string, phpVerMd5: string) : Promise<string> {
-	await exec("bash", ["compile.sh", "-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
+	await exec("/usr/bin/env", ["bash", "compile.sh", "-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
 	})
 	await cacheDir(join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())
