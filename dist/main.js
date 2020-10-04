@@ -41,7 +41,7 @@ var exec_1 = require("@actions/exec");
 var tool_cache_1 = require("@actions/tool-cache");
 var crypto_1 = require("crypto");
 var fs_1 = require("fs");
-var http = require("http");
+var https = require("https");
 var os = require("os");
 var path_1 = require("path");
 var semverCmp = require("semver-compare");
@@ -50,7 +50,7 @@ function getJson(url, opts) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) {
-                    http.request(url, opts, function (res) {
+                    https.get(url, opts, function (res) {
                         var data = "";
                         res.setEncoding("utf8");
                         res.on("data", function (chunk) {

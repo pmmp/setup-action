@@ -3,14 +3,14 @@ import {exec} from "@actions/exec"
 import {downloadTool, extractZip, cacheDir, cacheFile, find as findCache} from "@actions/tool-cache"
 import {createHash} from "crypto"
 import {createReadStream} from "fs"
-import * as http from "http"
+import * as https from "https"
 import * as os from "os"
 import {join} from "path"
 import * as semverCmp from "semver-compare"
 
-async function getJson(url: string, opts: http.RequestOptions = {}) : Promise<any> {
+async function getJson(url: string, opts: https.RequestOptions = {}) : Promise<any> {
 	return new Promise((resolve, reject) => {
-		http.request(url, opts, res => {
+		https.get(url, opts, res => {
 			let data = ""
 			res.setEncoding("utf8")
 			res.on("data", chunk => {
