@@ -36,8 +36,7 @@ async function downloadBuildScripts(ref: string) : Promise<[string, string]> {
 		})
 	}) as string
 	const target = await extractZip(zipball)
-	console.log(await fs.readdir(target))
-	return [join(target, "php-build-scripts-master"), hex]
+	return [join(target, `php-build-scripts-${ref}`), hex]
 }
 
 async function installWindows(buildScripts: string, phpVerMd5: string) : Promise<string> {
@@ -52,7 +51,6 @@ async function installWindows(buildScripts: string, phpVerMd5: string) : Promise
 }
 
 async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<string> {
-	console.log(await fs.readdir(buildScripts))
 	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,

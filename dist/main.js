@@ -64,12 +64,12 @@ function getJson(url, opts) {
 }
 function downloadBuildScripts(ref) {
     return __awaiter(this, void 0, void 0, function () {
-        var zipball, hash, hex, target, _a, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var zipball, hash, hex, target;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0: return [4 /*yield*/, tool_cache_1.downloadTool("https://github.com/pmmp/php-build-scripts/archive/" + ref + ".zip")];
                 case 1:
-                    zipball = _c.sent();
+                    zipball = _a.sent();
                     hash = crypto_1.createHash("md5");
                     return [4 /*yield*/, new Promise(function (resolve, reject) {
                             var reader = fs_1.createReadStream(zipball);
@@ -84,15 +84,11 @@ function downloadBuildScripts(ref) {
                             });
                         })];
                 case 2:
-                    hex = _c.sent();
+                    hex = _a.sent();
                     return [4 /*yield*/, tool_cache_1.extractZip(zipball)];
                 case 3:
-                    target = _c.sent();
-                    _b = (_a = console).log;
-                    return [4 /*yield*/, fs_1.promises.readdir(target)];
-                case 4:
-                    _b.apply(_a, [_c.sent()]);
-                    return [2 /*return*/, [path_1.join(target, "php-build-scripts-master"), hex]];
+                    target = _a.sent();
+                    return [2 /*return*/, [path_1.join(target, "php-build-scripts-" + ref), hex]];
             }
         });
     });
@@ -119,25 +115,19 @@ function installWindows(buildScripts, phpVerMd5) {
 }
 function installDarwin(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _b = (_a = console).log;
-                    return [4 /*yield*/, fs_1.promises.readdir(buildScripts)];
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
                 case 1:
-                    _b.apply(_a, [_c.sent()]);
-                    return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
-                case 2:
-                    _c.sent();
+                    _a.sent();
                     return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
                             cwd: buildScripts
                         })];
-                case 3:
-                    _c.sent();
+                case 2:
+                    _a.sent();
                     return [4 /*yield*/, tool_cache_1.cacheDir(path_1.join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())];
-                case 4:
-                    _c.sent();
+                case 3:
+                    _a.sent();
                     return [2 /*return*/, path_1.join(buildScripts, "bin", "php7", "bin", "php")];
             }
         });
