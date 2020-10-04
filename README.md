@@ -28,10 +28,10 @@ jobs:
       - uses: pmmp/setup@v1
         with:
           target: ${{ matrix.target }}
-			- uses: pmmp/test@v1
-				with:
-					target: ${{ matrix.target }}
-			- uses: pmmp/pack@v1
-				with:
-					target: ${{ matrix.target }}
+      - uses: pmmp/test@v1
+        with:
+          target: ${{ matrix.target }}
+      - uses: pmmp/pack@v1
+        with:
+          target: ${{ matrix.target }}
 ```
