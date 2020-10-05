@@ -1,4 +1,4 @@
-import {getInput, setFailed, setOutput} from "@actions/core"
+import {debug, getInput, setFailed, setOutput} from "@actions/core"
 import {exec} from "@actions/exec"
 import {downloadTool, extractZip, cacheDir, cacheFile, find as findCache} from "@actions/tool-cache"
 import {createHash} from "crypto"
@@ -71,7 +71,6 @@ async function installLinux(buildScripts: string, phpVerMd5: string) : Promise<s
 	})
 	await cacheDir(join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())
 	return join(buildScripts, "bin", "php7", "bin", "php")
-	return ""
 }
 
 interface Version {
@@ -91,11 +90,13 @@ async function parseVersion(target: string) : Promise<Version> {
 
 	if(target === "stable") {
 		const ret = await getJson("https://poggit.pmmp.io/pmapis")
+		debug(`Fetched pmapis: ${JSON.stringify(ret)}`)
 		const apis: string[] = []
 		for(const api in ret.data) {
 			apis.push(api)
 		}
 		apis.sort(semverCmp)
+		debug(`APIs available: ${apis.join(", ")}`)
 		const version = apis[apis.length - 1]
 
 		return {
@@ -125,7 +126,8 @@ async function parseVersion(target: string) : Promise<Version> {
 }
 
 ;(async () => {
-	const version = await parseVersion(getInput("target"))
+	const version = await parseVersion(getInput("target") || "stable")
+	debug(`Using target version ${version.ref} @ ${version.phpBranch}`)
 
 	const [buildScripts, phpVerMd5] = await downloadBuildScripts(version.phpBranch)
 

@@ -179,11 +179,13 @@ function parseVersion(target) {
                     return [4 /*yield*/, getJson("https://poggit.pmmp.io/pmapis")];
                 case 1:
                     ret = _a.sent();
+                    core_1.debug("Fetched pmapis: " + JSON.stringify(ret));
                     apis = [];
                     for (api in ret.data) {
                         apis.push(api);
                     }
                     apis.sort(semverCmp);
+                    core_1.debug("APIs available: " + apis.join(", "));
                     version = apis[apis.length - 1];
                     return [2 /*return*/, {
                             ref: version,
@@ -215,9 +217,10 @@ function parseVersion(target) {
     var version, _a, buildScripts, phpVerMd5, phpPath, _b, phar;
     return __generator(this, function (_c) {
         switch (_c.label) {
-            case 0: return [4 /*yield*/, parseVersion(core_1.getInput("target"))];
+            case 0: return [4 /*yield*/, parseVersion(core_1.getInput("target") || "stable")];
             case 1:
                 version = _c.sent();
+                core_1.debug("Using target version " + version.ref + " @ " + version.phpBranch);
                 return [4 /*yield*/, downloadBuildScripts(version.phpBranch)];
             case 2:
                 _a = _c.sent(), buildScripts = _a[0], phpVerMd5 = _a[1];
