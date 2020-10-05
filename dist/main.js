@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var core_1 = require("@actions/core");
 var exec_1 = require("@actions/exec");
+var io_1 = require("@actions/io");
 var tool_cache_1 = require("@actions/tool-cache");
 var crypto_1 = require("crypto");
 var fs_1 = require("fs");
@@ -251,6 +252,7 @@ function parseVersion(target) {
                 _c.label = 12;
             case 12:
                 core_1.setOutput("php", phpPath);
+                core_1.addPath(path_1.dirname(phpPath));
                 phar = tool_cache_1.find("PocketMine-MP.phar", version.ref);
                 if (!(phar === "")) return [3 /*break*/, 17];
                 if (!version.source) return [3 /*break*/, 13];
@@ -269,6 +271,7 @@ function parseVersion(target) {
                 _c.label = 18;
             case 18:
                 core_1.setOutput("pm", phar);
+                io_1.cp(phar, path_1.join(process.env.HOME, "PocketMine-MP.phar"));
                 return [2 /*return*/];
         }
     });

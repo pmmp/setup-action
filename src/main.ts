@@ -1,11 +1,12 @@
-import {debug, getInput, setFailed, setOutput} from "@actions/core"
+import {addPath, debug, getInput, setFailed, setOutput} from "@actions/core"
 import {exec} from "@actions/exec"
+import {cp} from "@actions/io"
 import {downloadTool, extractZip, cacheDir, cacheFile, find as findCache} from "@actions/tool-cache"
 import {createHash} from "crypto"
 import {createReadStream, promises as fs} from "fs"
 import * as https from "https"
 import * as os from "os"
-import {join} from "path"
+import {dirname, join} from "path"
 import * as semverCmp from "semver-compare"
 
 async function getJson(url: string, opts: https.RequestOptions = {}) : Promise<any> {
@@ -150,6 +151,7 @@ async function parseVersion(target: string) : Promise<Version> {
 	}
 
 	setOutput("php", phpPath)
+	addPath(dirname(phpPath))
 
 	let phar = findCache("PocketMine-MP.phar", version.ref)
 	if(phar === "") {
@@ -165,4 +167,6 @@ async function parseVersion(target: string) : Promise<Version> {
 	}
 
 	setOutput("pm", phar)
+
+	cp(phar, join(process.env.HOME, "PocketMine-MP.phar"))
 })().catch(setFailed)
