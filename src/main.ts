@@ -90,9 +90,8 @@ async function parseVersion(target: string) : Promise<Version> {
 
 	if(target === "stable") {
 		const ret = await getJson("https://poggit.pmmp.io/pmapis")
-		debug(`Fetched pmapis: ${JSON.stringify(ret)}`)
 		const apis: string[] = []
-		for(const api in ret.data) {
+		for(const api in ret) {
 			apis.push(api)
 		}
 		apis.sort(semverCmp)

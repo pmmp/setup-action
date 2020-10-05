@@ -179,9 +179,8 @@ function parseVersion(target) {
                     return [4 /*yield*/, getJson("https://poggit.pmmp.io/pmapis")];
                 case 1:
                     ret = _a.sent();
-                    core_1.debug("Fetched pmapis: " + JSON.stringify(ret));
                     apis = [];
-                    for (api in ret.data) {
+                    for (api in ret) {
                         apis.push(api);
                     }
                     apis.sort(semverCmp);
