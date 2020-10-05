@@ -118,7 +118,7 @@ function installDarwin(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exec_1.exec("brew", ["install", "bison", "re2c", "libtool", "libtool"])];
+                case 0: return [4 /*yield*/, exec_1.exec("brew", ["install", "automake", "bison", "re2c", "libtool", "libtool"])];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
@@ -142,7 +142,7 @@ function installLinux(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, exec_1.exec("sudo", ["apt-get", "install", "-y", "bison", "re2c", "libtool", "libtool-bin"])];
+                case 0: return [4 /*yield*/, exec_1.exec("sudo", ["apt-get", "install", "-y", "automake", "bison", "re2c", "libtool", "libtool-bin"])];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];

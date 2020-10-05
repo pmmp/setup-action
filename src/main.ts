@@ -52,7 +52,7 @@ async function installWindows(buildScripts: string, phpVerMd5: string) : Promise
 }
 
 async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<string> {
-	await exec("brew", ["install", "bison", "re2c", "libtool", "libtool"])
+	await exec("brew", ["install", "automake", "bison", "re2c", "libtool", "libtool"])
 	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
@@ -63,7 +63,7 @@ async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<
 }
 
 async function installLinux(buildScripts: string, phpVerMd5: string) : Promise<string> {
-	await exec("sudo", ["apt-get", "install", "-y", "bison", "re2c", "libtool", "libtool-bin"])
+	await exec("sudo", ["apt-get", "install", "-y", "automake", "bison", "re2c", "libtool", "libtool-bin"])
 	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
