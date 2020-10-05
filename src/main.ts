@@ -45,24 +45,29 @@ async function installWindows(buildScripts: string, phpVerMd5: string) : Promise
 		env: {
 			VS_EDITION: "Enterprise",
 		},
+		input: Buffer.alloc(0),
 	})
 	await cacheDir(join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())
 	return join(buildScripts, "bin", "php", "php.exe")
 }
 
 async function installDarwin(buildScripts: string, phpVerMd5: string) : Promise<string> {
+	await exec("sudo", ["brew", "install", "-y", "bison", "re2c", "libtool", "libtool"])
 	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
+		input: Buffer.alloc(0),
 	})
 	await cacheDir(join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())
 	return join(buildScripts, "bin", "php7", "bin", "php")
 }
 
 async function installLinux(buildScripts: string, phpVerMd5: string) : Promise<string> {
+	await exec("sudo", ["apt-get", "install", "-y", "bison", "re2c", "libtool", "libtool-bin"])
 	await fs.chmod(join(buildScripts, "compile.sh"), 0o775)
 	await exec("./compile.sh", ["-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
 		cwd: buildScripts,
+		input: Buffer.alloc(0),
 	})
 	await cacheDir(join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())
 	return join(buildScripts, "bin", "php7", "bin", "php")

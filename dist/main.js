@@ -101,7 +101,8 @@ function installWindows(buildScripts, phpVerMd5) {
                         cwd: buildScripts,
                         env: {
                             VS_EDITION: "Enterprise"
-                        }
+                        },
+                        input: Buffer.alloc(0)
                     })];
                 case 1:
                     _a.sent();
@@ -117,16 +118,20 @@ function installDarwin(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
+                case 0: return [4 /*yield*/, exec_1.exec("sudo", ["brew", "install", "-y", "bison", "re2c", "libtool", "libtool"])];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
-                            cwd: buildScripts
-                        })];
+                    return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, tool_cache_1.cacheDir(path_1.join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())];
+                    return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "mac64", "-j4", "-f", "-u", "-g", "-l"], {
+                            cwd: buildScripts,
+                            input: Buffer.alloc(0)
+                        })];
                 case 3:
+                    _a.sent();
+                    return [4 /*yield*/, tool_cache_1.cacheDir(path_1.join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())];
+                case 4:
                     _a.sent();
                     return [2 /*return*/, path_1.join(buildScripts, "bin", "php7", "bin", "php")];
             }
@@ -137,16 +142,20 @@ function installLinux(buildScripts, phpVerMd5) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
+                case 0: return [4 /*yield*/, exec_1.exec("sudo", ["apt-get", "install", "-y", "bison", "re2c", "libtool", "libtool-bin"])];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
-                            cwd: buildScripts
-                        })];
+                    return [4 /*yield*/, fs_1.promises.chmod(path_1.join(buildScripts, "compile.sh"), 509)];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, tool_cache_1.cacheDir(path_1.join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())];
+                    return [4 /*yield*/, exec_1.exec("./compile.sh", ["-t", "linux64", "-j4", "-f", "-u", "-g", "-l"], {
+                            cwd: buildScripts,
+                            input: Buffer.alloc(0)
+                        })];
                 case 3:
+                    _a.sent();
+                    return [4 /*yield*/, tool_cache_1.cacheDir(path_1.join(buildScripts, "bin"), "pmphp", phpVerMd5, os.type())];
+                case 4:
                     _a.sent();
                     return [2 /*return*/, path_1.join(buildScripts, "bin", "php7", "bin", "php")];
             }
